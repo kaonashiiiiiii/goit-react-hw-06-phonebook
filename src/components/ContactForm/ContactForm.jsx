@@ -1,9 +1,23 @@
 import React, { useState } from 'react'
 import styles from './contactForm.module.css'
+import { useDispatch, useSelector } from 'react-redux'
+import { getContacts } from 'store/selectors/contactSelectors'
+import { contactCreated } from 'store/slices/contactsSlice'
 
-const ContactForm = ({ addContact}) => {
+const ContactForm = () => {
   const [name, setName] = useState('')
   const [number, setNumber] = useState('')
+  const contacts = useSelector(getContacts)
+  const dispatch = useDispatch()
+
+  function checkContact (contact) {
+    const isContantExist = contacts.find(item => item.name === contact.name)
+    if (isContantExist) {
+      alert (`${contact.name} is already in contacts`)
+      return false
+    }
+    return true
+  }
 
   function resetForm () {
     setName('')
@@ -17,7 +31,9 @@ const ContactForm = ({ addContact}) => {
       name,
       number,
     }
-    addContact(contact)
+    if (checkContact(contact)) {
+      dispatch(contactCreated(contact))
+    }
     resetForm()
   }
   return (
