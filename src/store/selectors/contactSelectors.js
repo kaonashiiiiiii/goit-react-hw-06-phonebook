@@ -1,6 +1,6 @@
 const getContacts = (state) => state.contacts.contacts
 
-const getFilter = (state) => state.contacts.getFilter
+const getFilter = (state) => state.contacts.filter
 
 const getFilteredContacts = (state) => {
   const { contacts, filter } = state.contacts
