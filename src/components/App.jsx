@@ -2,9 +2,10 @@ import { useEffect, useRef } from "react";
 import { ContactForm, FilterForm, Section, ContactList } from "."
 import { useDispatch, useSelector } from "react-redux";
 import { setContacts } from "store/slices/contactsSlice";
+import { getContacts } from "store/selectors/contactSelectors";
 
 const App = () => {
-  const contacts = useSelector(state => state.contacts.contacts)
+  const contacts = useSelector(getContacts)
   const dispatch = useDispatch()
   const rendersCausedByContacts = useRef(0)
 
